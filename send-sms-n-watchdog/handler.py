@@ -45,6 +45,3 @@ def handle(req):
         except TwilioRestException as e:
             data = { "error": "Não foi possivel mandar o sms.", "reason": str(e.msg) }
             return jsonify(data), e.status
-        finally:
-            data = { "fatal": "Não conseguimos processar sua requisição." }
-            return jsonify(data), 500
