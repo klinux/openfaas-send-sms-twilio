@@ -1,0 +1,17 @@
+provider:
+  name: faas
+  gateway: ${GATEWAY}
+functions:
+  send-sms-n-watchdog:
+    lang: python3-flask
+    handler: ./send-sms-n-watchdog
+    image: klinux/send-sms-n-watchdog:${VERSION}
+    environment:
+      ACCOUND_SID: ${ACCOUNT_ID}
+      AUTH_TOKEN: ${TOKEN}
+      FROM_PHONE: ${FROM_PHONE}
+    labels:
+      com.openfaas.scale.min: 1
+      com.openfaas.scale.max: 10
+      com.openfaas.scale.factor: 30
+      com.openfaas.scale.zero: true

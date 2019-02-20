@@ -1,0 +1,17 @@
+provider:
+  name: faas
+  gateway: ${GATEWAY_URL}
+functions:
+  send-sms:
+    lang: python3
+    handler: ./send-sms
+    image: klinux/send-sms:${VERSION}
+    environment:
+      ACCOUND_SID: ${SID}
+      AUTH_TOKEN: ${TOKEN}
+      FROM_PHONE: ${FROM_NUMBER}
+    labels:
+      com.openfaas.scale.min: 1
+      com.openfaas.scale.max: 10
+      com.openfaas.scale.factor: 30
+      com.openfaas.scale.zero: true
